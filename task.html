@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermediate HTML,CSS and js</title>
+    <style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: rgb(16, 165, 251);
+    }
+    h1,h2 {
+        text-align: center;
+        text-shadow: black;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    form, .todo {
+        background: rgb(132, 193, 232);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 10px;
+    }
+
+    form input, form button,.todo input, .todo button {
+       width: 100%;
+       padding: 10px;
+       background: white;
+        margin: 10px 0;
+        border-radius: 7px;
+        border: 1px solid;
+    }
+    .todo ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .todo li {
+        padding: 8px 10px;
+        background: #e8f0fe;
+        margin: 5px 0;
+        border-radius: 5px;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-around;
+        background: blue;
+        color: white;
+        padding: 10px;
+    }
+
+    @media (max-width: 760px) {
+        .container {
+            grid-template-columns: 1fr;
+        }
+    }
+
+   </style>
+</head>
+<body>
+    
+   <nav>
+     <div>Home</div>
+     <div>Contact</div>
+     <div>To-Do</div>
+   </nav>
+
+   <h1>
+    TASK 2: Intermediate HTML, CSS and JavaScript
+   </h1>
+
+   <div class="container">
+     <form id="ContactForm">
+        <h2>CONTACT FORM</h2>
+        <input type="text" id="name" placeholder="Enter Your Name" required />
+        <input type="text"  id="email" placeholder="Enter Your email" required />
+        <input type="text"  id="message" placeholder="Your message" required />
+        <button type="submit" >SUBMIT</button>
+        <p id="FormMeassage" style="color: green;"></p>
+     </form>
+    <div class="todo">
+        <h2>TO-DO LIST</h2>
+        <input type="text" id="taskInput" placeholder="Add Task" />
+        <button onclick="addTask()">ADD TASK</button>
+        <ul id="taskList"></ul>
+    </div>
+    </div>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+            const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+            if (!name || !email || !message) {
+                alert("All fields are required!");
+                return;
+            }
+
+            if (!email.match(emailPattern)) {
+                alert("Enter a valid email!");
+                return;
+            }
+
+            document.getElementById("formMessage").textContent = "Form submitted successfully!";
+            this.reset();
+        });
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const taskText = taskInput.value.trim();
+            
+            if (taskText === "") return;
+            
+            const li = document.createElement("li");
+            li.textContent = taskText;
+            document.getElementById("taskList").appendChild(li);
+            taskInput.value = "";
+        }
+    </script>
+</body>
+</html>
